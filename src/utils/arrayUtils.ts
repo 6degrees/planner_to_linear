@@ -12,12 +12,6 @@ export const createProjectsArray = (projects: any) => {
   };
   
   export const createBucketsArray = (plannerJsonArray: any) => {
-    let bucketsArray: any[] = [];
-
-    plannerJsonArray.forEach((issue: any) => {
-      bucketsArray.push(issue["Bucket Name"]);
-    });
-    //console.log(bucketsArray);
-    return [...new Set(bucketsArray)];
+    return [...new Set(plannerJsonArray.map((issue:any) => issue["Bucket Name"]))];
   };
   

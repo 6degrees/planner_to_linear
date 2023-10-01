@@ -1,5 +1,5 @@
 import { LinearClient } from '@linear/sdk';
-import { Exact, Maybe, PaginationOrderBy, IssueFilter, UserFilter, TeamFilter, ProjectCreateInput, ProjectUpdateInput } from '@linear/sdk/dist/_generated_documents';
+import { ProjectCreateInput, } from '@linear/sdk/dist/_generated_documents';
 
 const createProject = async (linearClient: LinearClient, input: ProjectCreateInput) => {
   const project = await linearClient.createProject(input);
@@ -10,8 +10,7 @@ export const getProjectId = (projectsMap: any, projectName: any) => {
   return projectsMap[projectName];
 };
 
-export const createProjectsMap = async (linearClient: LinearClient, projects: any, bucketsArray: any, teamId: string) => {
-  // existing logic here
+export const createProjectsMap = async (linearClient: LinearClient, projects: any, bucketsArray: any, teamId: string) : Promise<any> => {
   let projectsMap: any = {};
 
   for(const bucket of bucketsArray) {
@@ -20,7 +19,6 @@ export const createProjectsMap = async (linearClient: LinearClient, projects: an
       let project = projects.nodes.find((project: any) => project.name == bucket);
       
       if (project) {
-          //console.log(`Project ${bucket} exists with id ${project.id}`);
           projectsMap[bucket] = project.id;
       }
       else {

@@ -4,16 +4,16 @@ export const onlyOneAssignee = (input: any[]): string => {
     // print input in one line as a string
 
     // if input is only one item and it is an empty string after trimming, return empty string
-    if (input.length == 1 && input[0].trim() == "") return "";
+    if (input.length === 1 && input[0].trim() === "") return "";
 
     
     if (input.length == 0) return "";
     // if a member is called "Member" or "Fahad Alaqidi" remove from array
-    input = input.filter(member => member != "Member" && member != "Fahad Alaqidi");
+    input = input.filter(member => !["Member", "Fahad Alaqidi"].includes(member));
 
     // if more than 1 member, check if they contain "Atheer Alotaibi" or "Mohannad Otaibi" and remove them
     if (input.length > 1)
-    input = input.filter(member => member != "Atheer Alotaibi" && member != "Mohannad Otaibi");
+    input = input.filter(member => !["Atheer Alotaibi", "Mohannad Otaibi"].includes(member));
     
     // some arrays after this might be blank, if so, return undefined
     if (input.length == 0) return "";
@@ -38,3 +38,5 @@ export const mapMembers = (input: []): string => {
 
     return membersMap[onlyOne] || undefined;
 }
+
+export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));

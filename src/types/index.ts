@@ -1,10 +1,11 @@
-export type IssueStatus = "Backlog" | "Not Started" | "In Progress" | "Completed" | "Canceled";
+export type IssueStatus = "Backlog" | "Not started" | "In progress" | "Completed" | "Canceled";
 export type PlannerPriority = "Low" | "Medium" | "Important" | "Urgent";
-export type plannerIssue = {
+export interface plannerIssue {
     teamId: string;
     'Task Name': string;
     Description: string;
     'projectId': string;
+    checklist: any;
     Priority: PlannerPriority;
     Assignee: string;
     labels: string[];
