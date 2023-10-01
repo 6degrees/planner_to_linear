@@ -1,11 +1,19 @@
 import 'dotenv/config'
-import csv from "csvtojson";
 import { LinearClient } from '@linear/sdk'
-
-
 
 const run = async () => {
     const linearClient = new LinearClient({ apiKey: process.env.LINEAR_API_KEY })
+    
+    // get rate limit info
+    const rateLimit = await linearClient.rateLimitStatus;
+    console.log('rateLimit', {
+        remaining: rateLimit.limits[0].remainingAmount,
+        limit: rateLimit.limits[0].allowedAmount,
+        resetAt: rateLimit.limits[0].reset,
+
+    });
+    process.exit();
+
     const { nodes: [team] } = await linearClient.teams();
     console.log('team', {
         id: team.id,
@@ -17,8 +25,7 @@ const run = async () => {
     console.log('members', members.map(member => ({
         id: member.id,
         name: member.displayName,
-    })
-    ));
+    })));
 
     // get labels
     const { nodes: labels } = await team.labels();
@@ -33,8 +40,6 @@ const run = async () => {
         id: state.id,
         name: state.name,
     })));
-
-
 }
 
 run();

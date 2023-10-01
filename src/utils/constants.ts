@@ -1,11 +1,11 @@
 export const fromPlannerLabelId = "755b903d-bead-49f3-b9bc-41231aa10532";
 
 export const IssueStatusMap = {
-    "In progress":  "9c78f874-3523-494a-b2e8-a76b67de6897", // in progress
-    Canceled:       "200634e6-0ca2-4b32-b6ab-839f086b48e8", // cancelled
-    Backlog:        "39d038d9-7b59-4d63-b27d-5d08fd5006e0", //backlog
-    "Not started":  "82c677d6-adeb-4858-87bb-35209ad35ae3", // todo
-    Completed:      "d6f683c6-8360-489a-8fc0-c75771f7be84", // done
+    "In progress":  "7bf4a83a-2bbc-4a5e-a542-5226dd8a2cec", // in progress
+    Canceled:       "cc12151f-3d7d-4052-9354-162e5896aabf", // cancelled
+    Backlog:        "8816cbb7-9d79-456b-8310-64f5584f2a1d", //backlog
+    "Not started":  "ba076d23-ece1-4c48-bbba-30564a8b465c", // todo
+    Completed:      "a0c7306d-1357-4b41-a0fa-51ac6d9f7e7c", // done
 };
 
 export const membersMap: any = {
