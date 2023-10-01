@@ -1,32 +1,6 @@
 import { IssueStatus, PlannerPriority, plannerIssue } from '../types'
 import { onlyOneAssignee } from './helpers';
-
-const fromPlannerLabelId = "755b903d-bead-49f3-b9bc-41231aa10532";
-
-const IssueStatusMap = {
-    "In progress": "ce137612-945d-41d6-aa91-eaa52ae460fb", // in progress
-    Canceled: "94ac8f0d-5f81-4e28-91b7-c320212444c9", // cancelled
-    Backlog: "80545467-575f-45cb-b30a-1655a44d8e68", //backlog
-    "Not started": "3f16dfe2-9f83-4b3f-a3c0-4313111c64de", // todo
-    Completed: "3d0132fc-ee60-41d2-b5e7-63c93515e13a", // done
-};
-
-const membersMap: any = {
-    "": undefined,
-    "Atheer Alotaibi": "aa28a6a1-acba-4fab-9bb5-ff618e2316fb",
-    "Hussain Alsaffar": "50d5fcf0-44b9-40a0-aead-d2b75841d10d",
-    "Reem Abahussian": "48db9f27-616d-4070-adbf-4cb0ee2b5850",
-    "Mutlaq Aldhubaib": "5f0a2780-4f87-4c12-b12e-52c502a429c4",
-    "Mohannad Otaibi": "5bf18e83-c541-447c-9bc8-43f20a79f14a",
-}
-
-const priorityMap = {
-    "": 0,
-    Urgent: 1,
-    Important: 2,
-    Medium: 3,
-    Low: 4,
-};
+import { membersMap, priorityMap, IssueStatusMap, fromPlannerLabelId } from './constants';
 
 export const mapMembers = (input: []): string => {
     const onlyOne = onlyOneAssignee(input);
@@ -52,7 +26,7 @@ const mapDate = (input: string): Date | undefined => {
     // if input is empty, return undefined
     if (input == "") return undefined;
     const [month, day, year] = input.split("/").map(str => parseInt(str, 10)); // Specify base 10
-    
+
     return new Date(Date.UTC(year, month - 1, day, 12, 0, 0));
 }
 
@@ -71,13 +45,17 @@ export const mapIssue = (input: plannerIssue): any => {
         dueDate: mapDate(input["Due Date"]),
         startedAt: mapDate(input["Start Date"]),
         completedAt: mapDate(input["Completed Date"]),
+        createAsUser: input["Creator"],
     };
-    console.log(linearIssue)
 
     return linearIssue;
 };
 
-export const mapChecklists = (items: any, completions: any) =>{
+/*  if item contains Checklist Items, store it as issue["checklist"] = [ { title: "item 1", completed: true }, { title: "item 2", completed: false } ] 
+    and get the completion status from the column issue["Completed Checklist Items"] where when it says "2/7" (this is the format of the completed checklist
+    items field) there should be 7 checlist items and the first two are completed
+*/
+export const mapChecklists = (items: any, completions: any) => {
     let checklists: any = [];
 
     if (items != "") {
@@ -88,7 +66,7 @@ export const mapChecklists = (items: any, completions: any) =>{
                 title: item,
                 completed: index <= completedItems ? true : false
             }
-        });    
+        });
     }
 
     return checklists;

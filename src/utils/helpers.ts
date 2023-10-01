@@ -1,13 +1,10 @@
 // This is a custom function to return only one assignee
-
 export const onlyOneAssignee = (input: any[]): string => {
-    // print input in one line as a string
-
     // if input is only one item and it is an empty string after trimming, return empty string
     if (input.length === 1 && input[0].trim() === "") return "";
 
-    
     if (input.length == 0) return "";
+    
     // if a member is called "Member" or "Fahad Alaqidi" remove from array
     input = input.filter(member => !["Member", "Fahad Alaqidi"].includes(member));
 

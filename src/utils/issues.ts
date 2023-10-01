@@ -22,9 +22,11 @@ export const createMainIssue = async (linearClient: LinearClient, issue: any) =>
     if(checklist != undefined){
         const subIssuePromises = checklist.map((item: any) => {
             item.parentId = lastIssue.id;
-            item.assigneeId = (lastIssue?._assignee?.id) ? lastIssue._assignee.id : undefined;
-            item.teamId = lastIssue._team.id;
-            item.projectId = lastIssue._project.id;
+            item.assigneeId = issue.assigneeId;
+            item.teamId = issue.teamId;
+            item.priority = issue.priority;
+            item.labelIds = issue.labelIds;
+            item.projectId = issue.projectId;
             return createSubIssue(linearClient, item);
           });
           await Promise.all(subIssuePromises);
@@ -38,6 +40,8 @@ export const createSubIssue = async (linearClient: LinearClient, issue: any) => 
         title: issue.title,
         description: issue.description,
         priority: issue.priority,
+        labelIds: issue.labelIds,
+        projectId: issue.projectId,
         assigneeId: issue.assigneeId,
         stateId: (issue.completed) ? mapStatus("Completed") : mapStatus("In progress"),
         parentId: issue.parentId,

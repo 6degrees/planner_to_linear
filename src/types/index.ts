@@ -14,4 +14,5 @@ export interface plannerIssue {
     'Due Date': string;
     'Start Date': string;
     'Completed Date': string;
+    'Creator': string;
 };
