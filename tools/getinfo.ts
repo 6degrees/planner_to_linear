@@ -20,6 +20,13 @@ const run = async () => {
     })
     ));
 
+    // get labels
+    const { nodes: labels } = await team.labels();
+    console.log('labels', labels.map(label => ({
+        id: label.id,
+        name: label.name,
+    })));
+
     // get states
     const { nodes: states } = await team.states();
     console.log('states', states.map(state => ({

@@ -17,11 +17,9 @@ const run = async () => {
     const linearClient = new LinearClient({ apiKey: process.env.LINEAR_API_KEY })
     // Get Teams
     const { nodes: [team] } = await linearClient.teams();
-
-    // get states
-    //const { nodes: states } = await team.states();
-    //console.log(states);
-    //process.exit(0)
+    
+    // create a new label called "from-planner" if it doesn't exist and save its id
+    let fromPlannerLabelId = "755b903d-bead-49f3-b9bc-41231aa10532";
 
     // Get CSV
     const plannerCsvFilePath = process.env.CSV_FILE_PATH ?? "";
@@ -40,7 +38,7 @@ const run = async () => {
         issue["Assignee"] = mapMembers(issue["Assigned To"].split(';'));
         issue["teamId"] = team.id;
         issue["projectId"] = getProjectId(projectsMap, issue["Bucket Name"]);
-
+        issue["labels"] = fromPlannerLabelId;
         /*  if item contains Checklist Items, store it as issue["checklist"] = [ { title: "item 1", completed: true }, { title: "item 2", completed: false } ] 
             and get the completion status from the column issue["Completed Checklist Items"] where when it says "2/7" (this is the format of the completed checklist
             items field) there should be 7 checlist items and the first two are completed
@@ -60,8 +58,8 @@ const run = async () => {
 
     const MAX_ISSUES_TO_CREATE = 5000;
     // so the server doesn't crash
-    const BATCH_SIZE = 20; 
-    const SLEEP_TIME = 10000; // 10 seconds
+    const BATCH_SIZE = 25; 
+    const SLEEP_TIME = 15000; // 10 seconds
 
     for (let i = 0; i < Math.min(MAX_ISSUES_TO_CREATE, issuesArray.length); i += BATCH_SIZE) {
         const batch = issuesArray.slice(i, i + BATCH_SIZE);

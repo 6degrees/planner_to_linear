@@ -16,11 +16,11 @@ export const mapPriority = (input: PlannerPriority): number => {
 // TODO: modulrize this to automate the mapping of states
 export const mapStatus = (input: IssueStatus): string | undefined => {
     const IssueStatusMap = {
-        Backlog: "d3ee9b8a-30e4-42c3-a704-d1a3313ac800", //backlog
-        "Not started": "49d318f1-31c7-4687-8029-05a603224778", // todo
-        "In progress": "0a47b1cb-7d46-469e-90cf-243a97355e16", // in progress
-        Completed: "2115faae-0233-4dcd-8d5c-c148e795d38b", // done
-        Canceled: "f2b7030d-cd78-4e73-a307-ffdaf1e0a86c",
+        Backlog: "410cb303-c836-460a-81a0-1716f6bbb28a", //backlog
+        "Not started": "0d712346-1480-4894-8f2d-80b749e7ea1e", // todo
+        "In progress": "cf8e9dc3-f227-48be-9f57-b3a14d65a81c", // in progress
+        Completed: "03e2ce23-6db4-4fc5-b84f-3d2976bc88e8", // done
+        Canceled: "281862f0-9cad-492c-af75-069729ff14ae", // cancelled
     };
 
     return IssueStatusMap[input] ?? undefined;
@@ -48,7 +48,7 @@ export const mapIssue = (input: plannerIssue): any => {
         projectId: input["projectId"],
         priority: mapPriority(input["Priority"]),
         assigneeId: input["Assignee"],
-        labelIds: input["labels"],
+        labelIds: [input["labels"]],
         checklist: input["checklist"],
         stateId: mapStatus(input["Progress"]),
         createdAt: mapDate(input["Created Date"]),
@@ -56,6 +56,7 @@ export const mapIssue = (input: plannerIssue): any => {
         startedAt: mapDate(input["Start Date"]),
         completedAt: mapDate(input["Completed Date"]),
     };
+    console.log(linearIssue)
 
     return linearIssue;
 };

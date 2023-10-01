@@ -35,3 +35,12 @@ to migrate from planner to linear
 - [ ] ✅ migrate
 - [ ] sync project target date to the due date of the last task
 - [ ] sync project lead to the assignee of the majority of tasks
+
+
+## Steps
+
+- get an API key and add it to the .env file
+- get the team id and add it to the .env file, you can get it by running `pnpm getinfo`
+- update team member ids in `mapMembers` function
+- update a label id to be added to the migrated data
+- get the states ids and copy them to `mapStates` function
