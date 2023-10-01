@@ -25,18 +25,4 @@ export const onlyOneAssignee = (input: any[]): string => {
     else return "";
 }
 
-export const mapMembers = (input: []): string => {
-    const onlyOne = onlyOneAssignee(input);
-    const membersMap: any = {
-        "": undefined,
-        "Atheer Alotaibi": "aa28a6a1-acba-4fab-9bb5-ff618e2316fb",
-        "Hussain Alsaffar": "50d5fcf0-44b9-40a0-aead-d2b75841d10d",
-        "Reem Abahussian": "48db9f27-616d-4070-adbf-4cb0ee2b5850",
-        "Mutlaq Aldhubaib": "5f0a2780-4f87-4c12-b12e-52c502a429c4",
-        "Mohannad Otaibi": "5bf18e83-c541-447c-9bc8-43f20a79f14a",
-    }
-
-    return membersMap[onlyOne] || undefined;
-}
-
 export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
