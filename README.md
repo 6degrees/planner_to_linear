@@ -32,10 +32,9 @@ to migrate from planner to linear
 - [x] map subtasks
 - [x] map dates - still glitchy
 - [x] modularize
-- [ ] ✅ migrate
+- [x] ✅ migrate
 - [ ] sync project target date to the due date of the last task
 - [ ] sync project lead to the assignee of the majority of tasks
-
 
 ## Steps
 
